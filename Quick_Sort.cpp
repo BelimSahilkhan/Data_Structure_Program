@@ -1,55 +1,52 @@
 #include<stdio.h>
 #include<conio.h>
-#define max 5
-void push();
-void pop();
-void display();
-int tos=-1;
-int stack[max];
-int item;
 
-void push()
+int pratition(int a[],int start,int end)
 {
-	if(tos==max-1)
+	int pivot=a[start],i=start,temp,j;
+	for(j=start+1;j<=end;j++)
 	{
-		printf("full");
-	}
-	else
-	{
-		printf("data");
-		scanf("%d",&item);
-		stack[tos]=item;
-		tos++;
-		
-		printf("item is inserted%d",item);
-	}
-}
-void pop()
-{
-	if(tos==-1)
-	{
-		printf("empty");
-	}
-	else
-	{
-		tos--;
-		item=stack[tos];
-		printf("item is deleted",item);
-	}
-}
-
-void display()
-{
-	if(tos==-1)
-	{
-		printf("empty");
-	}
-	else
-	{
-		int  i;
-		for(i=tos;i>=0;i--)
+		if(a[j]<pivot)
 		{
-			printf("%d",stack[tos]);
+			i++;
+			temp=a[i];
+			a[i]=a[j];
+			a[j]=temp;
 		}
 	}
+	temp=a[start];
+	a[start]=a[i];
+	a[i]=temp;
+	return i;
+	
+}
+void quick_sort(int a[],int low,int high)
+{
+	if(low<high)
+	{
+		int i=pratition(a,low,high);
+		quick_sort(a,low,i-1);
+		quick_sort(a,high,i+1);
+	}
+}
+int main()
+{
+	int a[10];
+	int no;
+	printf("Enter the no");
+	scanf("%D",&no);
+	int i;
+	printf("enter the no:");
+	scanf("%d",&no);
+	for(i=0;i<no;i++)
+	{
+		scanf("%d\n",&a[i]);
+	}
+	quick_sort(a,0,no-1);
+		for(i=0;i<no;i++)
+	{
+		printf("%d\n",a[i]);
+	}
+	getch();
+	
 }

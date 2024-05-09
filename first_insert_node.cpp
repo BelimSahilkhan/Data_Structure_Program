@@ -1,8 +1,8 @@
 #include<stdio.h>
 #include<conio.h>
 #include<stdlib.h>
-void last_insert_node();
-void last_delete_node();
+void first_insert_node();
+void delete_first_node();
 void display();
 void Exit();
 
@@ -10,10 +10,10 @@ struct node
 {
 	int data;
 	struct node *next;
-}*start=NULL,*ptr,*temp;
+}*start=NULL,*ptr;
 
-int x;
-void last_insert_node()
+int x,temp;
+void first_insert_node()
 {
 	printf("enter the Data=>");
 	scanf("%d",&x);
@@ -27,47 +27,28 @@ void last_insert_node()
 	else
 	{
 	    	ptr=start;
-	    	while(ptr->next!=NULL)
-	    	{
-	    		ptr=ptr->next;
-			}
-		ptr->next=(struct node*)malloc(sizeof(struct node));
-		ptr=ptr->next;
-		ptr->data=x;
-		ptr->next=NULL;
+		start=(struct node*)malloc(sizeof(struct node));
+		start->data=x;
+		start->next=ptr;
 	}
 }
-void last_delete_node()
+
+void delete_first_node()
 {
-	struct node *temp;
 	if(start==NULL)
 	{
-		printf("linked list is Empty");
+		printf("singly linked list Empty.!");
 	}
 	else
 	{
 		ptr=start;
-		while(ptr->next!=NULL)
-		{
-			temp=ptr;
-			ptr=ptr->next;
-			
-		}
-		printf("item is deleted %d",ptr->data);
-		if(start==ptr)
-		{
-			start=NULL;
-			free(ptr);
-		}
-		else
-		{
-			temp->next=NULL;
-			free(ptr);
-		}
+		printf("%d\n",ptr);
+		start=start->next;
+		//printf("Address Deleted:\n",start);
+		printf("item is deleted:%d\n",ptr->data);
+		free(ptr);
 	}
 }
-
-
 void display()
 {
 	if(start==NULL)
@@ -89,18 +70,17 @@ int main()
  	int ch;
 	do
 	{
-	    printf("\n1.Last Insert_Node\n2.Last Delete Node_\n3.Display\n4.Exit\n");
+	    printf("\n1.First_Insert_Node\n2.Delete_First\n3.Display\n4.Exit\n");
 	    printf("enter the choice:");
 	    scanf("%d",&ch);
 	    switch(ch)
 	    {
 	    		    	case 1:
- 				last_insert_node();
-
+ 				first_insert_node();
  				break;
 	    		
 	    			case 2:
-	    			  last_delete_node();	
+	    			 delete_first_node();	
     				break;
     				
    			     case 3:
